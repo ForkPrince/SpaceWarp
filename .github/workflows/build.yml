@@ -202,6 +202,8 @@ jobs:
       - name: Move Web Files
         run: |
           mkdir ./website
+          mkdir ./website/release
+          mkdir ./website/debug
           mv ./SpaceWarp.html ./website/release/index.html
           mv ./ressources ./website/release
           mv ./SpaceWarp-debug/SpaceWarp.html ./website/debug/index.html
