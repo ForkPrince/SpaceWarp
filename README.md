@@ -1,6 +1,6 @@
 <h3 align="center">Auto-builds has been merged with <a href="https://github.com/Wam25/SpaceWarp">Wam25/SpaceWarp</a>*</h3>
 
-<p align="center">* Auto-builds has been updated to support building the *debug* branch of SpaceWarp</p>
+<p align="center">* Auto-builds has been updated to support building the debug branch of SpaceWarp</p>
 
 # SpaceWarp
 
