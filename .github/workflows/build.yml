@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         build-type:
-          - release
+          - main
           - debug
 
     steps:
@@ -61,7 +61,7 @@ jobs:
     strategy:
       matrix:
         build-type:
-          - release
+          - main
           - debug
 
     steps:
@@ -124,7 +124,7 @@ jobs:
     strategy:
       matrix:
         build-type:
-          - release
+          - main
           - debug
 
     steps:
