@@ -204,6 +204,7 @@ jobs:
           mkdir ./website
           mkdir ./website/release
           mkdir ./website/debug
+          ls
           mv ./SpaceWarp.html ./website/release/index.html
           mv ./ressources ./website/release
           mv ./SpaceWarp-debug/SpaceWarp.html ./website/debug/index.html
