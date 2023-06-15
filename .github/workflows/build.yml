@@ -187,8 +187,7 @@ jobs:
       - name: Extract Debug Files
         run: |
           unzip debug.zip
-          ls
-          cd debug
+          cd SpaceWarp-debug
 
       - name: Build Pyxel App (debug)
         run: pyxel package ./ ./main.py
