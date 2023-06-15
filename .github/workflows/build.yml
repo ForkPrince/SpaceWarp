@@ -193,13 +193,11 @@ jobs:
         run: |
           cd SpaceWarp-debug
           pyxel package ./ ./main.py
-          ls
 
       - name: Build Web App (debug)
         run: | 
-          ls
           cd SpaceWarp-debug
-          pyxel app2html ./SpaceWarp.pyxapp
+          pyxel app2html ./SpaceWarp-debug.pyxapp
 
       - name: Move Web Files
         run: |
