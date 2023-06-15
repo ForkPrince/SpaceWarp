@@ -190,18 +190,22 @@ jobs:
           cd SpaceWarp-debug
 
       - name: Build Pyxel App (debug)
-        run: pyxel package ./ ./main.py
+        run: |
+          cd SpaceWarp-debug
+          pyxel package ./ ./main.py
 
       - name: Build Web App (debug)
-        run: pyxel app2html ./SpaceWarp.pyxapp
+        run: | 
+          cd SpaceWarp-debug
+          pyxel app2html ./SpaceWarp.pyxapp
 
       - name: Move Web Files
         run: |
-          mkdir ../website
-          mv ../SpaceWarp.html ../website/release/index.html
-          mv ../ressources ../website/release
-          mv ./SpaceWarp.html ../website/debug/index.html
-          mv ./ressources ../website/debug
+          mkdir ./website
+          mv ./SpaceWarp.html ./website/release/index.html
+          mv ./ressources ./website/release
+          mv ./SpaceWarp-debug/SpaceWarp.html ./website/debug/index.html
+          mv ./SpaceWarp-debug/ressources ./website/debug
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
@@ -210,7 +214,7 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           name: web
-          path: ../website
+          path: ./website
 
       - name: Deploy to GitHub Pages
         id: deployment
