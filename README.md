@@ -1,4 +1,4 @@
-<h3 align="center">Debug features has been merged with <a href="https://github.com/Wam25/SpaceWarp/tree/debug">Wam25/SpaceWarp (debug)</a></h3>
+<h3 align="center">Debug/Controller/Readme has been merged with <a href="https://github.com/Wam25/SpaceWarp/tree/debug">Wam25/SpaceWarp (debug)</a></h3>
 
 # SpaceWarp
 
