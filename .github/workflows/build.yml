@@ -175,26 +175,43 @@ jobs:
       - name: Install Python Packages
         run: pip install pyxel pyinstaller
 
-      - name: Build Pyxel App
+      - name: Build Pyxel App (main)
         run: pyxel package ./ ./main.py
 
-      - name: Build Web App
+      - name: Build Web App (main)
         run: pyxel app2html ./SpaceWarp.pyxapp
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+      - name: Download Debug Files
+        run: curl -LOk https://github.com/Wam25/SpaceWarp/archive/refs/heads/debug.zip
+
+      - name: Extract Debug Files
+        run: |
+          unzip debug.zip
+          ls
+          cd debug
+
+      - name: Build Pyxel App (debug)
+        run: pyxel package ./ ./main.py
+
+      - name: Build Web App (debug)
+        run: pyxel app2html ./SpaceWarp.pyxapp
 
       - name: Move Web Files
         run: |
-          mkdir ./website
-          mv ./SpaceWarp.html ./website/index.html
-          mv ./ressources ./website
+          mkdir /website
+          mv /SpaceWarp.html /website/release/index.html
+          mv /ressources /website/release
+          mv ./SpaceWarp.html /website/debug/index.html
+          mv ./ressources /website/debug
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
           name: web
-          path: ./website
+          path: /website
 
       - name: Deploy to GitHub Pages
         id: deployment
