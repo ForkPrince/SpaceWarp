@@ -195,7 +195,7 @@ jobs:
       - name: Build Pyxel App (debug)
         run: |
           cd SpaceWarp-debug
-          pyxel package ./ ./main.py
+          pyxel package ./ ./main.py packages="simpleaudio"
 
       - name: Build Web App (debug)
         run: | 
