@@ -139,7 +139,7 @@ jobs:
         with:
           python-version: 3.x
 
-      - name: Install Linux Dependencies
+      - name: Install Linux Packages
         run: sudo apt-get install libasound2-dev
 
       - name: Install Python Packages
