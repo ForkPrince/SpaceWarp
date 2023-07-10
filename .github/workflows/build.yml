@@ -180,27 +180,23 @@ jobs:
         run: pip install pyxel pyinstaller simpleaudio
 
       - name: Build Pyxel App (main)
-        run: pyxel package ./ ./main.py
+        run: |
+          cd release
+          pyxel package ./ ./main.py
 
       - name: Build Web App (main)
-        run: pyxel app2html ./SpaceWarp.pyxapp
-
-      - name: Download Debug Files
-        run: curl -LOk https://github.com/Wam25/SpaceWarp/archive/refs/heads/debug.zip
-
-      - name: Extract Debug Files
         run: |
-          unzip debug.zip
-          cd SpaceWarp-debug
+          cd release
+          pyxel app2html ./SpaceWarp.pyxapp
 
       - name: Build Pyxel App (debug)
         run: |
-          cd SpaceWarp-debug
+          cd debug
           pyxel package ./ ./main.py
 
       - name: Build Web App (debug)
         run: | 
-          cd SpaceWarp-debug
+          cd debug
           pyxel app2html ./SpaceWarp-debug.pyxapp
 
       - name: Move Web Files
@@ -208,11 +204,10 @@ jobs:
           mkdir ./website
           mkdir ./website/release
           mkdir ./website/debug
-          ls
-          mv ./SpaceWarp.html ./website/release/index.html
-          mv ./ressources ./website/release
-          mv ./SpaceWarp-debug/SpaceWarp-debug.html ./website/debug/index.html
-          mv ./SpaceWarp-debug/ressources ./website/debug
+          mv ./release/SpaceWarp.html ./website/release/index.html
+          mv ./release/ressources ./website/release
+          mv ./debug/SpaceWarp-debug.html ./website/debug/index.html
+          mv ./debug/ressources ./website/debug
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
