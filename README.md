@@ -1,25 +1,21 @@
-<h3 align="center">Auto-builds has been merged with <a href="https://github.com/Wam25/SpaceWarp">Wam25/SpaceWarp</a>*</h3>
-
-<p align="center">* Auto-builds has been updated to support building the debug branch of SpaceWarp</p>
-
 # SpaceWarp
 
-This fork is specifically designed to streamline the build process for the game Spacewarp. This repository automates the generation of game builds, making it easier for developers and players alike to access the latest versions of the game.
+Welcome to SpaceWarp, currently a game that barely works.
 
-## How to Download
+**Play the game [here](https://wam25.github.io/SpaceWarp/)** or download it from the latest workflow [here](https://github.com/Wam25/SpaceWarp/actions) (Note: currently not compatible with Mac).
 
-Navigate to the "Actions" tab on GitHub.
+## How to Play
 
-While being signed into your github account.
+**Controls:**
+- Use the left and right arrow keys to move your character.
+- Press the spacebar or up arrow key to jump.
+- Navigate menus by using the up and down arrow keys.
+- Select an item in the menu by pressing the enter key.
+- Press 'r' to restart the game.
 
-![actions](https://api.serversmp.xyz/upload/646b8e26a7fc256b12beb629.png)
+**Objective:**
+Your mission is to reach the spaceship (or whatever that is) and emerge victorious. But beware, the path is filled with challenges!
 
-Click on the latest action.
-
-![list](https://api.serversmp.xyz/upload/646b8e6da7fc256b12beb632.png)
-
-In the "Artifacts" section of the Actions page.
-
-You can find builds for **Windows**, **MacOS** and **Linux**
-
-![download](https://api.serversmp.xyz/upload/646b8eafa7fc256b12beb638.png)
+**Gameplay Tips:**
+- Press and hold a button to activate it. This action will open the door(s) with the same color for 5 seconds.
+- Collect keys to permanently open all doors of the corresponding color.

@@ -2,7 +2,7 @@ name: Build SpaceWarp
 
 on:
   push:
-    branches: ['build']
+    branches: ['main']
   workflow_dispatch:
 
 permissions: write-all
@@ -15,18 +15,9 @@ jobs:
   windows:
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        build-type:
-          - main
-          - debug
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          repository: Wam25/SpaceWarp
-          ref: ${{ matrix.build-type }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -35,7 +26,7 @@ jobs:
 
       - name: Install Python Packages
         run: pip install pyxel pyinstaller simpleaudio
-
+        
       - name: Build App
         run: pyinstaller SpaceWarp.spec
 
@@ -46,93 +37,73 @@ jobs:
       - name: Create Artifact (portable)
         uses: actions/upload-artifact@v3
         with:
-          name: windows-${{ matrix.build-type }}
+          name: windows
           path: ./dist/
 
       - name: Create Artifact (installer)
         uses: actions/upload-artifact@v3
         with:
-          name: windows-installer-${{ matrix.build-type }}
+          name: windows-installer
           path: ./ISS/Output/
+#   mac:
+#     runs-on: macos-latest
 
-  mac:
-    runs-on: macos-latest
+#     steps:
+#       - name: Checkout code
+#         uses: actions/checkout@v3
 
-    strategy:
-      matrix:
-        build-type:
-          - main
-          - debug
+#       - name: Set up Python
+#         uses: actions/setup-python@v4
+#         with:
+#           python-version: 3.x
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          repository: Wam25/SpaceWarp
-          ref: ${{ matrix.build-type }}
+#       - name: Install Python Packages
+#         run: pip install pyxel pyinstaller py2app simpleaudio
+        
+#       - name: Build App
+#         run: pyinstaller SpaceWarp.spec
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
+#       - name: Create Folder
+#         run: mkdir pyinstallerVersion
 
-      - name: Install Python Packages
-        run: pip install pyxel pyinstaller py2app simpleaudio
+#       - name: Move Files
+#         run: cp -R dist/* pyinstallerVersion
 
-      - name: Build App
-        run: pyinstaller SpaceWarp.spec
+#       - name: Delete Folder
+#         run: rm -r dist
 
-      - name: Create Folder
-        run: mkdir pyinstallerVersion
+#       - name: Download Required Files
+#         run: curl -LOk https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/mac.zip
 
-      - name: Move Files
-        run: cp -R dist/* pyinstallerVersion
+#       - name: Extract Required Files
+#         run: unzip mac.zip
 
-      - name: Delete Folder
-        run: rm -r dist
+#       - name: Move Files
+#         run: cp -R SpaceWarp-mac/* .
 
-      - name: Download Required Files
-        run: curl -LOk https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/mac.zip
+#       - name: Delete Folder
+#         run: rm -r SpaceWarp-mac
 
-      - name: Extract Required Files
-        run: unzip mac.zip
+#       - name: Build App
+#         run: python setup.py py2app
 
-      - name: Move Files
-        run: cp -R SpaceWarp-mac/* .
+#       - name: Create Artifact (pyinstaller)
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: mac-pyinstaller
+#           path: ./pyinstallerVersion/
 
-      - name: Delete Folder
-        run: rm -r SpaceWarp-mac
-
-      - name: Build App
-        run: python setup.py py2app
-
-      - name: Create Artifact (pyinstaller)
-        uses: actions/upload-artifact@v3
-        with:
-          name: mac-pyinstaller-${{ matrix.build-type }}
-          path: ./pyinstallerVersion/
-
-      - name: Create Artifact (py2app)
-        uses: actions/upload-artifact@v3
-        with:
-          name: mac-py2app-${{ matrix.build-type }}
-          path: ./dist/
-
+#       - name: Create Artifact (py2app)
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: mac-py2app
+#           path: ./dist/
   linux:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        build-type:
-          - main
-          - debug
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          repository: Wam25/SpaceWarp
-          ref: ${{ matrix.build-type }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -151,9 +122,8 @@ jobs:
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: linux-${{ matrix.build-type }}
+          name: linux
           path: ./dist/
-
   web:
     environment:
       name: github-pages
@@ -164,8 +134,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          repository: Wam25/SpaceWarp
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -178,43 +146,20 @@ jobs:
       - name: Install Python Packages
         run: pip install pyxel pyinstaller simpleaudio
 
-      - name: Build Pyxel App (main)
+      - name: Build Pyxel App
         run: pyxel package ./ ./main.py
 
-      - name: Build Web App (main)
+      - name: Build Web App
         run: pyxel app2html ./SpaceWarp.pyxapp
 
-      - name: Download Debug Files
-        run: curl -LOk https://github.com/Wam25/SpaceWarp/archive/refs/heads/debug.zip
-
-      - name: Extract Debug Files
-        run: |
-          unzip debug.zip
-          cd SpaceWarp-debug
-
-      - name: Build Pyxel App (debug)
-        run: |
-          cd SpaceWarp-debug
-          pyxel package ./ ./main.py
-
-      - name: Build Web App (debug)
-        run: | 
-          cd SpaceWarp-debug
-          pyxel app2html ./SpaceWarp-debug.pyxapp
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
 
       - name: Move Web Files
         run: |
           mkdir ./website
-          mkdir ./website/release
-          mkdir ./website/debug
-          ls
-          mv ./SpaceWarp.html ./website/release/index.html
-          mv ./ressources ./website/release
-          mv ./SpaceWarp-debug/SpaceWarp-debug.html ./website/debug/index.html
-          mv ./SpaceWarp-debug/ressources ./website/debug
-
-      - name: Setup Pages
-        uses: actions/configure-pages@v3
+          mv ./SpaceWarp.html ./website/index.html
+          mv ./ressources ./website
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
