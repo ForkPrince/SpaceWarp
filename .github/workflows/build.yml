@@ -165,7 +165,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: Wam25/SpaceWarp
+          repository: ForkPrince/SpaceWarp
+          ref: web
 
       - name: Set up Python
         uses: actions/setup-python@v4
