@@ -187,7 +187,7 @@ jobs:
       - name: Build Web App (main)
         run: |
           cd release
-          pyxel app2html ./SpaceWarp.pyxapp
+          pyxel app2html ./release.pyxapp
 
       - name: Build Pyxel App (debug)
         run: |
@@ -197,16 +197,16 @@ jobs:
       - name: Build Web App (debug)
         run: | 
           cd debug
-          pyxel app2html ./SpaceWarp-debug.pyxapp
+          pyxel app2html ./debug.pyxapp
 
       - name: Move Web Files
         run: |
           mkdir ./website
           mkdir ./website/release
           mkdir ./website/debug
-          mv ./release/SpaceWarp.html ./website/release/index.html
+          mv ./release/release.html ./website/release/index.html
           mv ./release/ressources ./website/release
-          mv ./debug/SpaceWarp-debug.html ./website/debug/index.html
+          mv ./debug/debug.html ./website/debug/index.html
           mv ./debug/ressources ./website/debug
 
       - name: Setup Pages
