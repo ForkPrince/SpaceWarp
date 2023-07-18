@@ -207,8 +207,8 @@ function draw() {
         const col = floor(mouseX / (width / grid[0].length));
 
         if (isValidCell(row, col)) {
-            if (isDoor(selected) && (gy > 0 && grid[gy - 1][gx] !== 0)) return;
-            else if ((gy > 0 && gy < 15 && grid[gy - 1][gx] === 17) || (gy > 0 && gy < 15 && grid[gy - 1][gx] === 20) || (gy > 0 && gy < 15 && grid[gy - 1][gx] === 23)) return;
+            if (isDoor(selected) && (gy > 0 && grid[gy + 1][gx] !== 0)) return;
+            else if ((gy > 0 && gy < 15 && grid[gy + 1][gx] === 17) || (gy > 0 && gy < 15 && grid[gy + 1][gx] === 20) || (gy > 0 && gy < 15 && grid[gy + 1][gx] === 23)) return;
 
             grid[row][col] = eraser ? 0 : selected;
         }
