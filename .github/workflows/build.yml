@@ -340,7 +340,6 @@ jobs:
 
       - name: Move Web Files
         run: |
-          mkdir ./website
           mkdir ./website/release
           mkdir ./website/debug
           mv ./release/release.html ./website/release/index.html
