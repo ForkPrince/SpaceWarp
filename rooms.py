@@ -122,8 +122,8 @@ class Room:
                 elif tile in door_mapping:
                     door_index = [17, 20, 23].index(tile)
 
-                    pyxel.blt(x * 8, y * 8 + self.doors_state[door_index] - 8, 0, *door_mapping[tile][0], 8, 8, 0)
-                    pyxel.blt(x * 8, y * 8 + 16 - self.doors_state[door_index], 0, *door_mapping[tile][1], 8, 8, 0)
+                    pyxel.blt(x * 8, y * 8, 0, 32 + 8 * (door_index), 40 - self.doors_state[door_index], 8, self.doors_state[door_index], 0)
+                    pyxel.blt(x * 8, y * 8 + 16 - self.doors_state[door_index], 0, 32 + 8 * (door_index), 40, 8, self.doors_state[door_index], 0)
 
                 elif tile in button_mapping:
                     button_index = [18, 21, 24].index(tile)
