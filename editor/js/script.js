@@ -4,7 +4,7 @@ let selected = 1;
 let selectedElement = "recent-1";
 let tileImages = {};
 let menuCheck = false;
-let recent = [4, 3, 2, 1, 5, 13, 14, 15, 16, 17, 19, 18];
+let recent = [4, 3, 2, 1, 5, 13, 14, 15, 16, 17, 18, 19];
 
 const tiles = [
     {
@@ -208,7 +208,7 @@ function draw() {
 
         if (isValidCell(row, col)) {
             if (isDoor(selected) && (gy > 0 && grid[gy - 1][gx] !== 0)) return;
-            else if ((gy < 15 && grid[gy - 1][gx] === 17) || (gy < 15 && grid[gy - 1][gx] === 20) || (gy < 15 && grid[gy - 1][gx] === 23)) return;
+            else if ((gy > 0 && gy < 15 && grid[gy - 1][gx] === 17) || (gy > 0 && gy < 15 && grid[gy - 1][gx] === 20) || (gy > 0 && gy < 15 && grid[gy - 1][gx] === 23)) return;
 
             grid[row][col] = eraser ? 0 : selected;
         }
@@ -230,15 +230,15 @@ function isDoor(number) {
 }
 
 function setObject(value, id) {
-    selected = !isNaN(value) ? recent[value] : value;
+    selected = isNaN(value) ? recent[Number(value.replace("recent-", ""))] : value;
 
     document.getElementById(selectedElement).classList.remove('selected');
 
     selectedElement = id;
 
-    if (isNaN(value)) {
-        if (!recent.includes(value)) recent.unshift(value);
-        else selectedElement = `recent-${recent.indexOf(value) + 1}`;
+    if (!isNaN(value)) {
+        if (!recent.includes(selected)) recent.unshift(selected);
+        else selectedElement = `recent-${recent.indexOf(selected) + 1}`;
 
         if (recent.length > 12) recent.pop();
     }
