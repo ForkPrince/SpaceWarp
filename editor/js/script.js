@@ -315,6 +315,20 @@ function flipHorizontal(array) {
     return flippedArray;
 }
 
+function beautifyJSON(arr) {
+    let result = '[';
+    const indent = ' '.repeat(8);
+
+    for (let i = 0; i < arr.length; i++) {
+        result += '\n' + indent + JSON.stringify(arr[i]);
+        if (i !== arr.length - 1) result += ',';
+    }
+
+    result += '\n]';
+
+    return result;
+}
+
 function importRoom() {
     if (navigator.clipboard && navigator.clipboard.readText) {
         navigator.clipboard
@@ -334,7 +348,7 @@ function processData(clipboardData) {
 }
 
 function exportRoom() {
-    const output = JSON.stringify(flipHorizontal(rotateRight(grid)));
+    const output = beautifyJSON(flipHorizontal(rotateRight(grid)));
 
     console.log(output);
     navigator.clipboard.writeText(output);
