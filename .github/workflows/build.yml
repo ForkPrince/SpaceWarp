@@ -166,7 +166,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: Wam25/SpaceWarp
+          repository: ForkPrince/SpaceWarp
           ref: ${{ matrix.build-type }}
 
       - name: Set up Python
@@ -208,7 +208,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: Wam25/SpaceWarp
+          repository: ForkPrince/SpaceWarp
           ref: ${{ matrix.build-type }}
 
       - name: Set up Python
@@ -270,7 +270,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: Wam25/SpaceWarp
+          repository: ForkPrince/SpaceWarp
           ref: ${{ matrix.build-type }}
 
       - name: Set up Python
