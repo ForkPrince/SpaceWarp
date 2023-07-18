@@ -343,10 +343,12 @@ jobs:
           mkdir ./website
           mkdir ./website/release
           mkdir ./website/debug
+          mkdir ./website/editor
           mv ./release/release.html ./website/release/index.html
           mv ./release/ressources ./website/release
           mv ./debug/debug.html ./website/debug/index.html
           mv ./debug/ressources ./website/debug
+          mv ./editor ./website/editor
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
