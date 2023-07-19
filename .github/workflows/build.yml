@@ -22,11 +22,15 @@ jobs:
           - debug
           - no-audio
           - tilemap
-        build-repo:
-          - Wam25/SpaceWarp
-          - Wam25/SpaceWarp
-          - Wam25/SpaceWarp
-          - ForkPrince/SpaceWarp
+        include:
+          - build-type: main
+            build-repo: Wam25/SpaceWarp
+          - build-type: debug
+            build-repo: Wam25/SpaceWarp
+          - build-type: no-audio
+            build-repo: Wam25/SpaceWarp
+          - build-type: tilemap
+            build-repo: ForkPrince/SpaceWarp
 
     runs-on: ${{ matrix.os }}
 
