@@ -12,126 +12,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  windows:
-    runs-on: windows-latest
 
+  build:
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         build-type:
           - main
           - debug
+          - no-audio
+          - tilemap
+        build-repo:
+          - Wam25/SpaceWarp
+          - Wam25/SpaceWarp
+          - Wam25/SpaceWarp
+          - ForkPrince/SpaceWarp
+
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: Wam25/SpaceWarp
-          ref: ${{ matrix.build-type }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install Python Packages
-        run: pip install pyxel pyinstaller pygame
-
-      - name: Build App
-        run: pyinstaller SpaceWarp.spec
-
-      - uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
-        with: 
-          filepath: './ISS/script.iss'
-
-      - name: Create Artifact (portable)
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-${{ matrix.build-type }}
-          path: ./dist/
-
-      - name: Create Artifact (installer)
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-installer-${{ matrix.build-type }}
-          path: ./ISS/Output/
-
-  # mac:
-  #   runs-on: macos-latest
-
-  #   strategy:
-  #     matrix:
-  #       build-type:
-  #         - main
-  #         - debug
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         repository: Wam25/SpaceWarp
-  #         ref: ${{ matrix.build-type }}
-
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: 3.x
-
-  #     - name: Install Python Packages
-  #       run: pip install pyxel pyinstaller py2app pygame
-
-  #     - name: Build App
-  #       run: pyinstaller SpaceWarp.spec
-
-  #     - name: Create Folder
-  #       run: mkdir pyinstallerVersion
-
-  #     - name: Move Files
-  #       run: cp -R dist/* pyinstallerVersion
-
-  #     - name: Delete Folder
-  #       run: rm -r dist
-
-  #     - name: Download Required Files
-  #       run: curl -LOk https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/mac.zip
-
-  #     - name: Extract Required Files
-  #       run: unzip mac.zip
-
-  #     - name: Move Files
-  #       run: cp -R SpaceWarp-mac/* .
-
-  #     - name: Delete Folder
-  #       run: rm -r SpaceWarp-mac
-
-  #     - name: Build App
-  #       run: python setup.py py2app
-
-  #     - name: Create Artifact (pyinstaller)
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: mac-pyinstaller-${{ matrix.build-type }}
-  #         path: ./pyinstallerVersion/
-
-  #     - name: Create Artifact (py2app)
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: mac-py2app-${{ matrix.build-type }}
-  #         path: ./dist/
-
-  linux:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        build-type:
-          - main
-          - debug
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          repository: Wam25/SpaceWarp
+          repository: ${{ matrix.build-repo }}
           ref: ${{ matrix.build-type }}
 
       - name: Set up Python
@@ -140,6 +43,7 @@ jobs:
           python-version: 3.x
 
       - name: Install Linux Packages
+        if: ${{ matrix.os }} == "ubuntu-latest"
         run: sudo apt-get install libasound2-dev
 
       - name: Install Python Packages
@@ -148,150 +52,23 @@ jobs:
       - name: Build App
         run: pyinstaller SpaceWarp.spec
 
-      - name: Create Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: linux-${{ matrix.build-type }}
-          path: ./dist/
-
-  windows-fork:
-    runs-on: windows-latest
-
-    strategy:
-      matrix:
-        build-type:
-          - tilemap
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          repository: ForkPrince/SpaceWarp
-          ref: ${{ matrix.build-type }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install Python Packages
-        run: pip install pyxel pyinstaller pygame
-
-      - name: Build App
-        run: pyinstaller SpaceWarp.spec
-
-      - uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
+      - if: ${{ matrix.os }} == "windows-latest"
+        uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
         with: 
           filepath: './ISS/script.iss'
 
-      - name: Create Artifact (portable)
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-${{ matrix.build-type }}
-          path: ./dist/
-
-      - name: Create Artifact (installer)
-        uses: actions/upload-artifact@v3
-        with:
-          name: windows-installer-${{ matrix.build-type }}
-          path: ./ISS/Output/
-
-  # mac-fork:
-  #   runs-on: macos-latest
-
-  #   strategy:
-  #     matrix:
-  #       build-type:
-  #         - tilemap
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         repository: ForkPrince/SpaceWarp
-  #         ref: ${{ matrix.build-type }}
-
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: 3.x
-
-  #     - name: Install Python Packages
-  #       run: pip install pyxel pyinstaller py2app pygame
-
-  #     - name: Build App
-  #       run: pyinstaller SpaceWarp.spec
-
-  #     - name: Create Folder
-  #       run: mkdir pyinstallerVersion
-
-  #     - name: Move Files
-  #       run: cp -R dist/* pyinstallerVersion
-
-  #     - name: Delete Folder
-  #       run: rm -r dist
-
-  #     - name: Download Required Files
-  #       run: curl -LOk https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/mac.zip
-
-  #     - name: Extract Required Files
-  #       run: unzip mac.zip
-
-  #     - name: Move Files
-  #       run: cp -R SpaceWarp-mac/* .
-
-  #     - name: Delete Folder
-  #       run: rm -r SpaceWarp-mac
-
-  #     - name: Build App
-  #       run: python setup.py py2app
-
-  #     - name: Create Artifact (pyinstaller)
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: mac-pyinstaller-${{ matrix.build-type }}
-  #         path: ./pyinstallerVersion/
-
-  #     - name: Create Artifact (py2app)
-  #       uses: actions/upload-artifact@v3
-  #       with:
-  #         name: mac-py2app-${{ matrix.build-type }}
-  #         path: ./dist/
-
-  linux-fork:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        build-type:
-          - tilemap
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          repository: ForkPrince/SpaceWarp
-          ref: ${{ matrix.build-type }}
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.x
-
-      - name: Install Linux Packages
-        run: sudo apt-get install libasound2-dev
-
-      - name: Install Python Packages
-        run: pip install pyxel pyinstaller pygame
-
-      - name: Build App
-        run: pyinstaller SpaceWarp.spec
-
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: linux-${{ matrix.build-type }}
+          name: ${{ matrix.os }}-${{ matrix.build-type }}
           path: ./dist/
+
+      - name: Create Artifact (installer)
+        if: ${{ matrix.os }} == "windows-latest"
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.os }}-installer-${{ matrix.build-type }}
+          path: ./ISS/Output/
 
   web:
     environment:
