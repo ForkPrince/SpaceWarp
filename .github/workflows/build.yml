@@ -23,6 +23,11 @@ jobs:
           - no-audio
           - tilemap
         include:
+          - os: windows-latest
+            isWindows: true
+          - os: ubuntu-latest
+            isUbuntu: true
+
           - build-type: main
             build-repo: Wam25/SpaceWarp
           - build-type: debug
@@ -47,7 +52,7 @@ jobs:
           python-version: 3.x
 
       - name: Install Linux Packages
-        if: matrix.os == ubuntu-latest
+        if: ${{ matrix.isUbuntu }}
         run: sudo apt-get install libasound2-dev
 
       - name: Install Python Packages
@@ -57,7 +62,7 @@ jobs:
         run: pyinstaller SpaceWarp.spec
 
       - uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
-        if: matrix.os == windows-latest
+        if: ${{ matrix.isWindows }}
         with: 
           filepath: './ISS/script.iss'
 
@@ -68,7 +73,7 @@ jobs:
           path: ./dist/
 
       - name: Create Artifact (installer)
-        if: matrix.os == windows-latest
+        if: ${{ matrix.isWindows }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}-installer-${{ matrix.build-type }}
