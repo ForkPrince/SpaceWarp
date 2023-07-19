@@ -56,8 +56,8 @@ jobs:
       - name: Build App
         run: pyinstaller SpaceWarp.spec
 
-      - if: ${{ matrix.os }} == "windows-latest"
-        uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
+      - uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
+        if: ${{ matrix.os == "windows-latest" }}
         with: 
           filepath: './ISS/script.iss'
 
@@ -68,7 +68,7 @@ jobs:
           path: ./dist/
 
       - name: Create Artifact (installer)
-        if: ${{ matrix.os }} == "windows-latest"
+        if: ${{ matrix.os == "windows-latest" }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.os }}-installer-${{ matrix.build-type }}
