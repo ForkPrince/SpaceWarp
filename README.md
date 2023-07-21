@@ -20,6 +20,6 @@ Click on the latest action.
 
 In the "Artifacts" section of the Actions page.
 
-You can find builds for **Windows**, ~~**MacOS**~~ and **Linux**
+You can find builds for **Windows**, **MacOS** and **Linux**
 
 ![download](https://api.serversmp.xyz/upload/646b8eafa7fc256b12beb638.png)
