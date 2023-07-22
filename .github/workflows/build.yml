@@ -100,6 +100,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    outputs:
+      build-type: ${{ matrix.build-type }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -136,8 +139,8 @@ jobs:
           name: web-${{ matrix.build-type }}
           path: ./website/
 
-    # outputs:
-    #   list: 
+      - name: Set Build Type Output
+        run: echo ::set-output name=build-type::${{ matrix.build-type }}
 
   web-deploy:
     environment:
@@ -149,10 +152,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Access Build Type
+        run: echo "The build type is ${{ needs.web-build.outputs.build-type }}"
+
       - name: Download multiple artifacts
         uses: marcofaggian/action-download-multiple-artifacts@v1
         with:
-          names: ${{ fromJson("web-no-audio", "web-no-audio-debug") }}
+          names: web-no-audio web-no-audio-debug
           paths: ./release ./debug
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build.yml
