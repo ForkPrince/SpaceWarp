@@ -134,6 +134,7 @@ jobs:
         if: ${{ matrix.build-type == 'no-audio-debug' }}
         run: |
           cd ./website
+          sed -i 's|https://cdn.jsdelivr.net/gh/kitao/pyxel/wasm/pyxel.js|https://forkprince.github.io/SpaceWarp/js/pyxel.js|g' index.html
           echo '<audio id="backgroundMusic" src="./ressources/bgm.mp3" loop></audio>' >> index.html
           echo '<audio id="jumpSFX" src="./ressources/jump.wav"></audio>' >> index.html
           echo '<script>' >> index.html
