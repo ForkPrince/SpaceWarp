@@ -161,8 +161,9 @@ jobs:
       - name: Download and Extract Editor
         run: |
           curl -L -o editor.zip https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/editor.zip
-          mkdir editor
           unzip editor.zip
+          mkdir editor
+          ls
           mv SpaceWarp-editor editor
           rm editor.zip
 
