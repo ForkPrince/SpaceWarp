@@ -131,7 +131,6 @@ jobs:
           mv ./ressources ./website/
 
       - name: Add audio support
-        if: ${{ matrix.build-type == 'no-audio-debug' }}
         run: |
           cd ./website
           sed -i 's|https://cdn.jsdelivr.net/gh/kitao/pyxel/wasm/pyxel.js|../js/pyxel.js|g' index.html
