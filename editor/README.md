@@ -8,7 +8,7 @@ To get started with the Cosmic Warpforge, follow these steps:
 
 1. Launch the [Cosmic Warpforge](https://forkprince.github.io/SpaceWarp/editor/) editor on your device.
 2. You will be greeted by an intuitive user interface that resembles the familiar Super Mario Maker style.
-3. Familiarize yourself with the various blocks, objects, and textures available in the editor. These elements will allow you to construct your levels.
+3. Familiarize yourself with the various blocks and objects available in the editor. These elements will allow you to construct your levels.
 4. Use the provided tools to place blocks and objects on the level canvas, creating your desired layout. You can choose from a variety of options, such as walls, doors, buttons, keys, and more.
 5. Experiment with different combinations and arrangements to design engaging and challenging levels. Let your imagination run wild!
 6. Export your level to ensure you can continue later.
@@ -23,13 +23,9 @@ The editor features a visually appealing and intuitive user interface, inspired 
 
 ### 2. Extensive Block and Object Library
 
-The editor provides a diverse selection of blocks, objects, and textures to choose from when designing your levels. These elements include various types of walls, doors, buttons, keys, and more. With these building blocks at your disposal, you can create intricate and exciting challenges for SpaceWarp players.
+The editor provides a diverse selection of blocks and objects to choose from when designing your levels. These elements include various types of walls, doors, buttons, keys, and more. With these building blocks at your disposal, you can create intricate and exciting challenges for SpaceWarp players.
 
-### 3. Texture Packs
-
-To add more visual variety to your levels, the Cosmic Warpforge offers two different texture packs. You can choose between these packs to customize the appearance of your level and give it a unique style. Experiment with different textures to create distinct environments and aesthetics.
-
-### 4. Level Export and Import
+### 3. Level Export and Import
 
 The Cosmic Warpforge allows you to export and import your levels effortlessly. This feature enables you to share your creations with others or back up your progress for future editing. The exported level data is represented using a grid-based format, which can be easily shared and interpreted.
 
