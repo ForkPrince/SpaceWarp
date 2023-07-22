@@ -125,12 +125,12 @@ jobs:
         run: ls -la
 
       - name: Build Web App
-        run: pyxel app2html ./SpaceWarp-${{ matrix.build-branch }}.pyxapp
+        run: pyxel app2html ./SpaceWarp.pyxapp
 
       - name: Move files
         run: |
           mkdir ./website
-          mv ./SpaceWarp-${{ matrix.build-branch }}.html ./website/index.html
+          mv ./SpaceWarp.html ./website/index.html
           mv ./ressources ./website/
 
       - name: Create Artifact
