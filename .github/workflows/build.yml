@@ -152,7 +152,7 @@ jobs:
       - name: Download multiple artifacts
         uses: marcofaggian/action-download-multiple-artifacts@v1
         with:
-          names: ${{ fromJson(["web-no-audio", "web-no-audio-debug"]) }}
+          names: ${{ fromJson("web-no-audio", "web-no-audio-debug") }}
           paths: ./release ./debug
           github_token: ${{ secrets.GITHUB_TOKEN }}
           workflow: build.yml
