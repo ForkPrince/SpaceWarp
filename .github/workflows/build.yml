@@ -130,6 +130,17 @@ jobs:
           mv ./SpaceWarp.html ./website/index.html
           mv ./ressources ./website/
 
+      - name: Add audio support
+        if: ${{ matrix.build-type == 'no-audio-debug' }}
+        run: |
+          cd ./website
+          echo '<audio id="backgroundMusic" src="./ressources/bgm.mp3" loop></audio>' >> index.html
+          echo '<audio id="jumpSFX" src="./ressources/jump.wav"></audio>' >> index.html
+          echo '<script>' >> index.html
+          echo '    let startedGame=0;function keyEvent(event){if(event.keyCode===13&&startedGame===0){document.getElementById('backgroundMusic').play();startedGame=1}else if(event.keyCode===38&&startedGame===1){document.getElementById('jumpSFX').play()}}document.addEventListener('keypress',keyEvent);document.addEventListener('keydown',keyEvent);function gamepadButtonEvent(event){const buttonPressed=event.buttons[0].pressed;if(buttonPressed&&startedGame===0){document.getElementById('backgroundMusic').play();startedGame=1}else if(buttonPressed&&startedGame===1){document.getElementById('jumpSFX').play()}}function updateGamepadState(){const gamepads=navigator.getGamepads();for(const gamepad of gamepads){if(gamepad){gamepadButtonEvent(gamepad)}}requestAnimationFrame(updateGamepadState)}requestAnimationFrame(updateGamepadState);' >> index.html
+          echo '</script>' >> index.html
+
+
       - name: Create Artifact
         uses: actions/upload-artifact@v3
         with:
@@ -187,73 +198,3 @@ jobs:
         uses: actions/deploy-pages@v2
         with:
           artifact_name: web
-
-  # web:
-  #   environment:
-  #     name: github-pages
-  #     url: ${{ steps.deployment.outputs.page_url }}
-
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         repository: ForkPrince/SpaceWarp
-  #         ref: web
-
-  #     - name: Set up Python
-  #       uses: actions/setup-python@v4
-  #       with:
-  #         python-version: 3.x
-
-  #     - name: Install Linux Packages
-  #       run: sudo apt-get install libsdl2-mixer-2.0-0 libsdl2-image-2.0-0 libsdl2-2.0-0 libasound2-dev
-
-  #     - name: Install Python Packages
-  #       run: pip install pyxel pyinstaller
-
-  #     - name: Build Pyxel App (main)
-  #       run: |
-  #         cd release
-  #         pyxel package ./ ./main.py
-
-  #     - name: Build Web App (main)
-  #       run: |
-  #         cd release
-  #         pyxel app2html ./release.pyxapp
-
-  #     - name: Build Pyxel App (debug)
-  #       run: |
-  #         cd debug
-  #         pyxel package ./ ./main.py
-
-  #     - name: Build Web App (debug)
-  #       run: | 
-  #         cd debug
-  #         pyxel app2html ./debug.pyxapp
-
-  #     - name: Move Web Files
-  #       run: |
-  #         mkdir ./website/release
-  #         mkdir ./website/debug
-  #         mv ./release/release.html ./website/release/index.html
-  #         mv ./release/ressources ./website/release
-  #         mv ./debug/debug.html ./website/debug/index.html
-  #         mv ./debug/ressources ./website/debug
-  #         mv ./editor ./website
-
-  #     - name: Setup Pages
-  #       uses: actions/configure-pages@v3
-
-  #     - name: Upload artifact
-  #       uses: actions/upload-pages-artifact@v1
-  #       with:
-  #         name: web
-  #         path: ./website
-
-  #     - name: Deploy to GitHub Pages
-  #       id: deployment
-  #       uses: actions/deploy-pages@v2
-  #       with:
-  #         artifact_name: web
