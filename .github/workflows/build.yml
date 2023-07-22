@@ -100,9 +100,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    outputs:
-      build-type: ${{ steps.web-build.outputs.build-type }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -139,10 +136,6 @@ jobs:
           name: web-${{ matrix.build-type }}
           path: ./website/
 
-      - name: Set Build Type Output
-        id: build-type
-        run: echo ::set-output name=build-type::${{ matrix.build-type }} ${{ steps.web-build.outputs.build-type }}
-
   web-deploy:
     environment:
       name: github-pages
@@ -153,16 +146,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Access Build Type
-        run: echo "The build type is ${{ needs.web-build.outputs.build-type }}"
-
-      - name: Download multiple artifacts
-        uses: marcofaggian/action-download-multiple-artifacts@v4.0.1
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
         with:
-          names: web-no-audio web-no-audio-debug
-          paths: ./release ./debug
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build.yml
+          name: web-no-audio
+          path: ./release
+
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: web-no-audio-debug
+          path: ./debug
+
+      - name: Download and Extract Editor
+        run: |
+          curl -L -o editor.zip https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/editor.zip
+          mkdir editor
+          unzip editor.zip -d ./editor/
+          rm editor.zip
+
+      - name: Download and Extract Editor
+        run: |
+          curl -L -o web.zip https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/web.zip
+          unzip web.zip
+          rm web.zip
 
       - name: Setup Pages
         uses: actions/configure-pages@v3
