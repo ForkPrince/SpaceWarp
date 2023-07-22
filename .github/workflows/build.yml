@@ -138,20 +138,19 @@ jobs:
           echo '<audio id="backgroundMusic" src="./ressources/bgm.mp3" loop></audio>' >> index.html
           echo '<audio id="jumpSFX" src="./ressources/jump.wav"></audio>' >> index.html
           echo '<script>' >> index.html
-          echo '    let startedGame = 0;' >> index.html
           echo '    function keyEvent(event) {' >> index.html
-          echo '        if (event.keyCode === 13 && startedGame === 0) {' >> index.html
+          echo '        if (event.keyCode === 13 && window.startedGame === 0) {' >> index.html
           echo '            document.getElementById("backgroundMusic").play();' >> index.html
-          echo '            startedGame = 1;' >> index.html
-          echo '        } else if (event.keyCode === 38 && startedGame === 1) document.getElementById("jumpSFX").play();' >> index.html
+          echo '            window.startedGame = 1;' >> index.html
+          echo '        } else if (event.keyCode === 38 && window.startedGame === 1) document.getElementById("jumpSFX").play();' >> index.html
           echo '    }' >> index.html
           echo '    document.addEventListener("keydown", keyEvent);' >> index.html
           echo '    function gamepadButtonEvent(event) {' >> index.html
           echo '        const buttonPressed = event.buttons[0].pressed;' >> index.html
-          echo '        if (buttonPressed && startedGame === 0) {' >> index.html
+          echo '        if (buttonPressed && window.startedGame === 0) {' >> index.html
           echo '            document.getElementById("backgroundMusic").play();' >> index.html
-          echo '            startedGame = 1;' >> index.html
-          echo '        } else if (buttonPressed && startedGame === 1) document.getElementById("jumpSFX").play();' >> index.html
+          echo '            window.startedGame = 1;' >> index.html
+          echo '        } else if (buttonPressed && window.startedGame === 1) document.getElementById("jumpSFX").play();' >> index.html
           echo '    }' >> index.html
           echo '    function updateGamepadState() {' >> index.html
           echo '        const gamepads = navigator.getGamepads();' >> index.html
