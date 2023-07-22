@@ -1,3 +1,3 @@
 # SpaceWarp
 
-This is a modified version of the game without the sound for web support.
+This is just the home page for the web.
