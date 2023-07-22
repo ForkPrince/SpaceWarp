@@ -134,9 +134,9 @@ jobs:
         if: ${{ matrix.build-type == 'no-audio-debug' }}
         run: |
           cd ./website
-          sed -i 's|https://cdn.jsdelivr.net/gh/kitao/pyxel/wasm/pyxel.js|https://forkprince.github.io/SpaceWarp/js/pyxel.js|g' index.html
-          echo '<audio id="backgroundMusic" src="./ressources/bgm.mp3" loop></audio>' >> index.html
-          echo '<audio id="jumpSFX" src="./ressources/jump.wav"></audio>' >> index.html
+          sed -i 's|https://cdn.jsdelivr.net/gh/kitao/pyxel/wasm/pyxel.js|../js/pyxel.js|g' index.html
+          echo '<audio id="backgroundMusic" src="../aud/bgm.mp3" loop></audio>' >> index.html
+          echo '<audio id="jumpSFX" src="../aud/jump.wav"></audio>' >> index.html
           echo '<script>' >> index.html
           echo '    function keyEvent(event) {' >> index.html
           echo '        if (event.keyCode === 13 && window.startedGame === 0) {' >> index.html
