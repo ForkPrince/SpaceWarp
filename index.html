@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./img/menu/icon.png">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Cosmic Warpforge</title>
+</head>
+
+<body>
+    <ul class="top-nav frosted">
+        <button class="button right last" onclick="exportRoom()"><img src="./img/menu/export.png"></button>
+        <button class="button right" onclick="importRoom()"><img src="./img/menu/import.png"></button>
+        <div class="center">
+            <button id="recent-1" class="button terrain" onclick="setObject('recent-0', 'recent-1')"><img src="./img/tiles/wall/top.png"></button>
+            <button id="recent-2" class="button terrain" onclick="setObject('recent-1', 'recent-2')"><img src="./img/tiles/wall/bottom.png"></button>
+            <button id="recent-3" class="button terrain" onclick="setObject('recent-2', 'recent-3')"><img src="./img/tiles/wall/connect.png"></button>
+            <button id="recent-4" class="button terrain" onclick="setObject('recent-3', 'recent-4')"><img src="./img/tiles/wall/single.png"></button>
+            <button id="recent-5" class="button terrain" onclick="setObject('recent-4', 'recent-5')"><img src="./img/tiles/decoration/1.png"></button>
+            <button id="recent-6" class="button enemies" onclick="setObject('recent-5', 'recent-6')"><img src="./img/tiles/fire/up.png"></button>
+            <button id="recent-7" class="button enemies" onclick="setObject('recent-6', 'recent-7')"><img src="./img/tiles/fire/down.png"></button>
+            <button id="recent-8" class="button enemies" onclick="setObject('recent-7', 'recent-8')"><img src="./img/tiles/fire/left.png"></button>
+            <button id="recent-9" class="button enemies" onclick="setObject('recent-8', 'recent-9')"><img src="./img/tiles/fire/right.png"></button>
+            <button id="recent-10" class="button gizmos" onclick="setObject('recent-9', 'recent-10')"><img src="./img/tiles/object/yellow/door/top.png"></button>
+            <button id="recent-11" class="button gizmos" onclick="setObject('recent-10', 'recent-11')"><img src="./img/tiles/object/yellow/button.png"></button>
+            <button id="recent-12" class="button gizmos" onclick="setObject('recent-11', 'recent-12')"><img src="./img/tiles/object/yellow/key.png"></button>
+            <div class="gap"></div>
+            <button id="menuButton" class="button" onclick="toggleMenu()"><img src="./img/menu/down.png"></button>
+            <div class="gap"></div>
+            <button id="eraser" class="button" onclick="toggleEraser()"><img src="./img/menu/eraser.png"></button>
+        </div>
+    </ul>
+
+    <div id="editor" class="editor"></div>
+
+    <div id="menu" class="menu">
+        <div class="menu-content frosted">
+            <button id="wall-1" class="button terrain" onclick="setObject(4, 'recent-1')"><img src="./img/tiles/wall/top.png"></button>
+            <button id="wall-2" class="button terrain" onclick="setObject(3, 'recent-1')"><img src="./img/tiles/wall/bottom.png"></button>
+            <button id="wall-3" class="button terrain" onclick="setObject(2, 'recent-1')"><img src="./img/tiles/wall/connect.png"></button>
+            <button id="wall-4" class="button terrain" onclick="setObject(1, 'recent-1')"><img src="./img/tiles/wall/single.png"></button>
+            <button id="wall-5" class="button terrain" onclick="setObject(5, 'recent-1')"><img src="./img/tiles/decoration/1.png"></button>
+            <button id="wall-6" class="button terrain" onclick="setObject(6, 'recent-1')"><img src="./img/tiles/decoration/2.png"></button>
+            <button id="wall-7" class="button terrain" onclick="setObject(7, 'recent-1')"><img src="./img/tiles/decoration/3.png"></button>
+            <button id="wall-8" class="button terrain" onclick="setObject(8, 'recent-1')"><img src="./img/tiles/decoration/4.png"></button>
+            <button id="wall-9" class="button terrain" onclick="setObject(9, 'recent-1')"><img src="./img/tiles/decoration/5.png"></button>
+            <button id="wall-10" class="button terrain" onclick="setObject(10, 'recent-1')"><img src="./img/tiles/decoration/6.png"></button>
+            <button id="wall-11" class="button terrain" onclick="setObject(11, 'recent-1')"><img src="./img/tiles/decoration/7.png"></button>
+            <button id="wall-12" class="button terrain" onclick="setObject(12, 'recent-1')"><img src="./img/tiles/decoration/8.png"></button>
+            <hr>
+            <button id="fire-1" class="button enemies" onclick="setObject(13, 'recent-1')"><img src="./img/tiles/fire/up.png"></button>
+            <button id="fire-2" class="button enemies" onclick="setObject(14, 'recent-1')"><img src="./img/tiles/fire/down.png"></button>
+            <button id="fire-3" class="button enemies" onclick="setObject(16, 'recent-1')"><img src="./img/tiles/fire/left.png"></button>
+            <button id="fire-4" class="button enemies" onclick="setObject(15, 'recent-1')"><img src="./img/tiles/fire/right.png"></button>
+            <hr>
+            <button id="yellow-1" class="button gizmos" onclick="setObject(17, 'recent-1')"><img src="./img/tiles/object/yellow/door/top.png"></button>
+            <button id="yellow-2" class="button gizmos" onclick="setObject(18, 'recent-1')"><img src="./img/tiles/object/yellow/button.png"></button>
+            <button id="yellow-3" class="button gizmos" onclick="setObject(19, 'recent-1')"><img src="./img/tiles/object/yellow/key.png"></button>
+            <hr>
+            <button id="red-1" class="button gizmos" onclick="setObject(20, 'recent-1')"><img src="./img/tiles/object/red/door/top.png"></button>
+            <button id="red-2" class="button gizmos" onclick="setObject(21, 'recent-1')"><img src="./img/tiles/object/red/button.png"></button>
+            <button id="red-3" class="button gizmos" onclick="setObject(22, 'recent-1')"><img src="./img/tiles/object/red/key.png"></button>
+            <hr>
+            <button id="blue-1" class="button gizmos" onclick="setObject(23, 'recent-1')"><img src="./img/tiles/object/blue/door/top.png"></button>
+            <button id="blue-2" class="button gizmos" onclick="setObject(24, 'recent-1')"><img src="./img/tiles/object/blue/button.png"></button>
+            <button id="blue-3" class="button gizmos" onclick="setObject(25, 'recent-1')"><img src="./img/tiles/object/blue/key.png"></button>
+        </div>
+    </div>
+
+    <audio id="music" class="hidden" src="./aud/background.mp3" autoplay loop></audio>
+
+    <script src="./js/p5.min.js"></script>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
