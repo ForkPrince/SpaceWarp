@@ -162,13 +162,16 @@ jobs:
         run: |
           curl -L -o editor.zip https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/editor.zip
           mkdir editor
-          unzip editor.zip -d ./editor/
+          unzip editor.zip
+          mv SpaceWarp-editor editor
           rm editor.zip
 
-      - name: Download and Extract Editor
+      - name: Download and Extract Website
         run: |
           curl -L -o web.zip https://github.com/ForkPrince/SpaceWarp/archive/refs/heads/web.zip
           unzip web.zip
+          mv SpaceWarp-web/* ./
+          rmdir SpaceWarp-web
           rm web.zip
 
       - name: Setup Pages
