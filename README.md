@@ -1,3 +1,5 @@
+**Note: The Cosmic Maze Constructor is designed to work exclusively with the [Tilemap Fork of SpaceWarp](https://github.com/ForkPrince/SpaceWarp/tree/tilemap).**
+
 # Cosmic Warpforge
 
 Welcome to the Cosmic Warpforge *(SpaceWarp Level Editor)*! This powerful tool allows you to create and customize levels for the exciting game, SpaceWarp. With a user-friendly interface inspired by Super Mario Maker, you can unleash your creativity and design unique gameplay experiences. Whether you're a seasoned game designer or a casual player looking to create your own challenges, the Cosmic Warpforge has got you covered.
