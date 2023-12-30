@@ -111,8 +111,8 @@ jobs:
         if: ${{ matrix.isLinux }}
         run: |
           ./build.AppImage ./dist/SpaceWarp/
-          chmod u+x ./SpaceWarp-x86_64.AppImage
           mv ./SpaceWarp-x86_64.AppImage ./SpaceWarp-${{ matrix.build-type }}.AppImage
+          ls ./dist/SpaceWarp
 
       - name: Create Artifact (appimage)
         if: ${{ matrix.isLinux }}
