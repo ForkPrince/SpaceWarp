@@ -69,6 +69,7 @@ jobs:
       - name: Linux Build Patches
         if: ${{ matrix.isLinux }}
         run: |
+          ls ./dist
           mkdir ./dist/SpaceWarp/ressources/
           mv ./dist/SpaceWarp/_internal/ressources/bgm.mp3 ./dist/SpaceWarp/ressources/
           chmod u+x ./dist/SpaceWarp/SpaceWarp
