@@ -67,9 +67,8 @@ jobs:
         run: pyinstaller SpaceWarp.spec
 
       - name: Linux Build Patches
-        if: ${{ matrix.isLinux }}
+        if: ${{ matrix.isLinux && matrix.build-type != 'no-audio' }}
         run: |
-          ls ./dist
           mkdir ./dist/SpaceWarp/ressources/
           mv ./dist/SpaceWarp/_internal/ressources/bgm.mp3 ./dist/SpaceWarp/ressources/
           chmod u+x ./dist/SpaceWarp/SpaceWarp
