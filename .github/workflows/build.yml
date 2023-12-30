@@ -74,7 +74,7 @@ jobs:
 
       - name: Linux Exec Patch
         if: ${{ matrix.isLinux }}
-        run: chmod u+x ./dist/SpaceWarp/SpaceWarp
+        run: chmod +x ./dist/SpaceWarp/SpaceWarp
 
       - name: Create Artifact
         uses: actions/upload-artifact@v3
