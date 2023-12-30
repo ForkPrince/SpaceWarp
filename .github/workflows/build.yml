@@ -58,7 +58,7 @@ jobs:
 
       - name: Install Linux Packages
         if: ${{ matrix.isLinux }}
-        run: sudo apt-get install libasound2-dev desktop-file-utils
+        run: sudo apt-get install libasound2-dev desktop-file-utils appstream
 
       - name: Install Python Packages
         run: pip install pyxel pyinstaller pygame
@@ -112,7 +112,6 @@ jobs:
         run: |
           ./build.AppImage ./dist/SpaceWarp/
           mv ./SpaceWarp-x86_64.AppImage ./SpaceWarp-${{ matrix.build-type }}.AppImage
-          ls ./dist/SpaceWarp
 
       - name: Create Artifact (appimage)
         if: ${{ matrix.isLinux }}
