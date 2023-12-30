@@ -66,10 +66,12 @@ jobs:
       - name: Build App
         run: pyinstaller SpaceWarp.spec
 
-      - uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
-        if: ${{ matrix.isWindows }}
-        with: 
-          filepath: './ISS/script.iss'
+      - name: Linux Build Patches
+        if: ${{ matrix.isLinux }}
+        run: |
+          mkdir ./dist/SpaceWarp/ressources/
+          mv ./dist/SpaceWarp/_internal/ressources/bgm.mp3 ./dist/SpaceWarp/ressources/
+          chmod u+x ./dist/SpaceWarp/SpaceWarp
 
       - name: Create Artifact
         uses: actions/upload-artifact@v3
@@ -77,12 +79,44 @@ jobs:
           name: ${{ matrix.arch }}-${{ matrix.build-type }}
           path: ./dist/
 
+      - uses: nadeemjazmawe/inno-setup-action-cli@v6.0.5
+        if: ${{ matrix.isWindows }}
+        with: 
+          filepath: './ISS/script.iss'
+
       - name: Create Artifact (installer)
         if: ${{ matrix.isWindows }}
         uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.arch }}-installer-${{ matrix.build-type }}
           path: ./ISS/Output/
+
+      - name: Download AppImageTool
+        if: ${{ matrix.isLinux }}
+        run: |
+          wget -c https://github.com/AppImage/appimagetool/releases/download/continuous/appimagetool-x86_64.AppImage -O build.AppImage
+          chmod u+x ./build.AppImage
+
+      - name: Download AppImage Files
+        if: ${{ matrix.isLinux }}
+        run: |
+          wget https://raw.githubusercontent.com/ForkPrince/SpaceWarp/appimage/AppRun -P ./dist/SpaceWarp/
+          wget https://raw.githubusercontent.com/ForkPrince/SpaceWarp/appimage/SpaceWarp.desktop -P ./dist/SpaceWarp/
+          wget https://raw.githubusercontent.com/ForkPrince/SpaceWarp/appimage/SpaceWarp.png -P ./dist/SpaceWarp/
+
+      - name: Build AppImage
+        if: ${{ matrix.isLinux }}
+        run: |
+          ./build.AppImage ./dist/SpaceWarp/
+          chmod u+x ./SpaceWarp-x86_64.AppImage
+          mv ./SpaceWarp-x86_64.AppImage ./SpaceWarp-${{ matrix.build-type }}.AppImage
+
+      - name: Create Artifact (appimage)
+        if: ${{ matrix.isLinux }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.arch }}-appimage-${{ matrix.build-type }}
+          path: ./SpaceWarp-${{ matrix.build-type }}.AppImage
 
   web-build:
     strategy:
