@@ -66,12 +66,15 @@ jobs:
       - name: Build App
         run: pyinstaller SpaceWarp.spec
 
-      - name: Linux Build Patches
+      - name: Linux Audio Patches
         if: ${{ matrix.isLinux && matrix.build-type != 'no-audio' }}
         run: |
           mkdir ./dist/SpaceWarp/ressources/
           mv ./dist/SpaceWarp/_internal/ressources/bgm.mp3 ./dist/SpaceWarp/ressources/
-          chmod u+x ./dist/SpaceWarp/SpaceWarp
+
+      - name: Linux Exec Patch
+        if: ${{ matrix.isLinux }}
+        run: chmod u+x ./dist/SpaceWarp/SpaceWarp
 
       - name: Create Artifact
         uses: actions/upload-artifact@v3
