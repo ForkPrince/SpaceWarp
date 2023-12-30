@@ -58,7 +58,7 @@ jobs:
 
       - name: Install Linux Packages
         if: ${{ matrix.isLinux }}
-        run: sudo apt-get install libasound2-dev
+        run: sudo apt-get install libasound2-dev desktop-file-utils
 
       - name: Install Python Packages
         run: pip install pyxel pyinstaller pygame
