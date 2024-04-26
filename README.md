@@ -1,4 +1,4 @@
-**Note: The Cosmic Maze Constructor is designed to work exclusively with the [Tilemap Fork of SpaceWarp](https://github.com/ForkPrince/SpaceWarp/tree/tilemap).**
+**Note: Cosmic Warpforge is designed to work exclusively with the [Tilemap Fork of SpaceWarp](https://github.com/ForkPrince/SpaceWarp/tree/tilemap).**
 
 # Cosmic Warpforge
 
