@@ -46,6 +46,8 @@ class Room:
                 self.button_state[i] -= 1
 
         for x, line in enumerate(self.objects):
+            print(line)
+
             for y, tile in enumerate(line):
                 if tile in [17, 20, 23]:
                     door_index = [17, 20, 23].index(tile)
@@ -127,9 +129,7 @@ class Room:
                     51: (40, 56),
                     52: (48, 48),
                     53: (48, 56),
-                    54: (56, 48),
-                    55: (56, 56),
-                    56: (64, 56)
+                    55: (56, 56)
                 }
                 door_mapping = {
                     17: [(32, 32), (32, 40)],
