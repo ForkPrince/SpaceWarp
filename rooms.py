@@ -46,8 +46,6 @@ class Room:
                 self.button_state[i] -= 1
 
         for x, line in enumerate(self.objects):
-            print(line)
-
             for y, tile in enumerate(line):
                 if tile in [17, 20, 23]:
                     door_index = [17, 20, 23].index(tile)
